@@ -20,6 +20,12 @@ var Events = (function() {
     cur_state = STATE.PLAYING;
   };
 
+  var pause = function(prev_delta) {
+      window.clearInterval(counter);
+      Elements.start_stop_button.innerText = "Start";
+      cur_state = STATE.PAUSED;
+  };
+
   var start_stop = function() { 
     switch (cur_state)
     {
@@ -28,10 +34,7 @@ var Events = (function() {
       break;
 
       case STATE.PLAYING:
-        prev_delta = Date.now() - start_time + prev_delta;
-        window.clearInterval(counter);
-        Elements.start_stop_button.innerText = "Start";
-        cur_state = STATE.PAUSED;
+        pause(Date.now() - start_time + prev_delta);
       break;
 
       case STATE.PAUSED:
@@ -46,19 +49,23 @@ var Events = (function() {
 
   };
 
-  var tick = function() {
-    var delta = Date.now() - start_time + prev_delta;
+  var parse_delta = function(delta) {
     var ms = parseInt((delta % 1e3))
     var seconds = parseInt(delta / 1e3);
     var minutes = parseInt(seconds / 60);
     var hours = parseInt(minutes / 60);
 
-    Elements.display.innerText = minutes%60 + ":" + seconds%60 + ":" + ms%60;
+    return minutes%60 + ":" + seconds%60 + ":" + ms%60;
+  }
+
+  var tick = function() {
+    var delta = Date.now() - start_time + prev_delta;
+    Elements.display.innerText = parse_delta(delta);
   };
 
   var reset = function () {
-    Elements.display.innerText = "00:00:00";
-    prev_delta = 0.0;
+    Elements.display.innerText = parse_delta(0);
+    pause(0);
     cur_state = STATE.RESET;
   };
 

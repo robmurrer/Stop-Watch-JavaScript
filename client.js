@@ -79,13 +79,31 @@ var Events = (function() {
 
 
 var Elements = (function() {
-  var start_stop_button = document.getElementById("start_stop_button");
+  var start_text = "Start";
+  var stop_text = "Stop";
+  var reset_text = "Reset";
+  var display_text = "00:00:00";
+
+  var container = document.getElementById("stopwatch");
+
+  var display = document.createElement("div");
+  display.id = "display";
+  display.innerText = display_text;
+  container.appendChild(display);
+
+  var start_stop_button = document.createElement("button");
+  start_stop_button.id = "start_stop_button";
+  start_stop_button.innerText = start_text;
   start_stop_button.addEventListener("click", Events.start_stop);
+  container.appendChild(start_stop_button);
 
-  var reset_button = document.getElementById("reset_button");
+  var reset_button = document.createElement("button");
+  reset_button.id = "reset_button";
+  reset_button.innerText = reset_text;
   reset_button.addEventListener("click", Events.reset);
+  container.appendChild(reset_button);
 
-  var display = document.getElementById("display");
+
   return {
     start_stop_button: start_stop_button,
     reset_button: reset_button,

@@ -1,7 +1,7 @@
 # Stopwatch in JavaScript
 A simple example application written in Javascript.
 
-Screencast available: https://www.twitch.tv/robmurrer
+Screencast available: https://www.twitch.tv/robmurrer (now deleted?)
 
 Code: https://github.com/robmurrer/Stop-Watch-JavaScript
 
